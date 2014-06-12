@@ -110,24 +110,6 @@ Actually *2304* of them.
 
 ```r
 data2 <- na.omit(data)
-summary(data2)
-```
-
-```
-##      steps            date               interval   
-##  Min.   :  0.0   Min.   :2012-10-02   Min.   :   0  
-##  1st Qu.:  0.0   1st Qu.:2012-10-16   1st Qu.: 589  
-##  Median :  0.0   Median :2012-10-29   Median :1178  
-##  Mean   : 37.4   Mean   :2012-10-30   Mean   :1178  
-##  3rd Qu.: 12.0   3rd Qu.:2012-11-16   3rd Qu.:1766  
-##  Max.   :806.0   Max.   :2012-11-29   Max.   :2355  
-##       time                    
-##  Min.   :2012-10-02 00:00:00  
-##  1st Qu.:2012-10-16 05:58:45  
-##  Median :2012-10-29 11:57:30  
-##  Mean   :2012-10-31 04:41:31  
-##  3rd Qu.:2012-11-16 17:56:15  
-##  Max.   :2012-11-29 23:55:00
 ```
 
 My prefered way to plot is using *ggplot2* package.  
@@ -344,8 +326,8 @@ ggplot(data.byDay, aes(total.steps)) + geom_histogram(binwidth=1000) + theme_bw(
 ![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16.png) 
 
 We see that distribution is similar as before imputing missing values, but more narrow.  
-This can be easy explained by the strategy used for impute missing values, as ve replace them by means.
-It is true that is replaced by mean of steps in intervals, but this also captures a setps done in a day.
+This can be easy explained by the strategy used for impute missing values, as we replace them by means.
+It is true that is replaced by mean of steps in intervals, but this also captures steps done in a day.
 
 We can calculate mean and median of total number of steps taken per day:
 
@@ -378,6 +360,7 @@ Task 1) Create a new factor variable in the dataset with two levels – “weekd
 
 
 ```r
+# add weekday column as described
 data2$weekday <- sapply(weekdays(data2$time), function (x) if (x %in% c("Saturday", "Sunday" )) "weekend" else "weekday" )
 head(data2)
 ```
@@ -425,8 +408,8 @@ Now we have prepared data frame to plot and compare patter of average steps done
 ```r
 # plot time series of average spteps in 5 min intervals
 ggplot(interval.byDay, aes(x=(interval), y=(avg.steps)))  + geom_line() +  facet_wrap(~ weekday, ncol = 1) +
-  scale_x_datetime(breaks = date_breaks("1 hour"), labels = date_format("%H:%M")) + xlab("Interval") + ylab("Average number of steps") +
-     theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5)) 
+  scale_x_datetime(breaks = date_breaks("1 hour"), labels = date_format("%H:%M")) + xlab("Interval") +
+    ylab("Average number of steps") + theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5)) 
 ```
 
 ![plot of chunk unnamed-chunk-20](figure/unnamed-chunk-20.png) 

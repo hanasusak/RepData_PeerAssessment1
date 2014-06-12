@@ -50,7 +50,6 @@ Actually *`r colSums(is.na(data))[colSums(is.na(data)) != 0] `* of them.
 **NOTE:** As instructions says we can ignore NA values, my assumption was to exclude all rows where NA values were present.
 ```{r echo=TRUE}
 data2 <- na.omit(data)
-summary(data2)
 ```
 
 My prefered way to plot is using *ggplot2* package.  
@@ -186,8 +185,8 @@ ggplot(data.byDay, aes(total.steps)) + geom_histogram(binwidth=1000) + theme_bw(
 ```
 
 We see that distribution is similar as before imputing missing values, but more narrow.  
-This can be easy explained by the strategy used for impute missing values, as ve replace them by means.
-It is true that is replaced by mean of steps in intervals, but this also captures a setps done in a day.
+This can be easy explained by the strategy used for impute missing values, as we replace them by means.
+It is true that is replaced by mean of steps in intervals, but this also captures steps done in a day.
 
 We can calculate mean and median of total number of steps taken per day:
 ```{r echo=TRUE} 
@@ -208,6 +207,7 @@ We see that mean and meadian value did not change much, but this is also due to 
 Task 1) Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 
 ```{r echo=TRUE}
+# add weekday column as described
 data2$weekday <- sapply(weekdays(data2$time), function (x) if (x %in% c("Saturday", "Sunday" )) "weekend" else "weekday" )
 head(data2)
 ```
@@ -236,8 +236,8 @@ Now we have prepared data frame to plot and compare patter of average steps done
 ```{r echo=TRUE, fig.height=6, fig.width=11} 
 # plot time series of average spteps in 5 min intervals
 ggplot(interval.byDay, aes(x=(interval), y=(avg.steps)))  + geom_line() +  facet_wrap(~ weekday, ncol = 1) +
-  scale_x_datetime(breaks = date_breaks("1 hour"), labels = date_format("%H:%M")) + xlab("Interval") + ylab("Average number of steps") +
-     theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5)) 
+  scale_x_datetime(breaks = date_breaks("1 hour"), labels = date_format("%H:%M")) + xlab("Interval") +
+    ylab("Average number of steps") + theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5)) 
 
 ```
 
