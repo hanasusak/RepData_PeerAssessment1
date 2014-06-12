@@ -342,6 +342,7 @@ ggplot(data.byDay, aes(total.steps)) + geom_histogram(binwidth=1000) + theme_bw(
 ```
 
 ![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16.png) 
+
 We see that distribution is similar as before imputing missing values, but more narrow.  
 This can be easy explained by the strategy used for impute missing values, as ve replace them by means.
 It is true that is replaced by mean of steps in intervals, but this also captures a setps done in a day.

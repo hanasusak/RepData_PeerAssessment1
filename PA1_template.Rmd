@@ -184,6 +184,7 @@ Now we make a histrogram for total steps per a day with binwidth of 1000:
 ```{r echo=TRUE, fig.height=5}
 ggplot(data.byDay, aes(total.steps)) + geom_histogram(binwidth=1000) + theme_bw()
 ```
+
 We see that distribution is similar as before imputing missing values, but more narrow.  
 This can be easy explained by the strategy used for impute missing values, as ve replace them by means.
 It is true that is replaced by mean of steps in intervals, but this also captures a setps done in a day.
